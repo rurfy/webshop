@@ -4,20 +4,23 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
- * Kunde Entity
+ * User Entity
  *
  * @property int $KundeID
  * @property string $Vorname
  * @property string $Nachname
- * @property string $E-Mail
+ * @property string $EMail
  * @property string $Adresse
  * @property string $PLZ
  * @property string $Stadt
  * @property string $Land
+ * @property string $Benutzername
+ * @property string $Passwort
  */
-class Kunde extends Entity
+class User extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -36,5 +39,14 @@ class Kunde extends Entity
         'PLZ' => true,
         'Stadt' => true,
         'Land' => true,
+        'Benutzername' => true,
+        'Passwort' => true,
     ];
+
+    protected function _setPasswort($Passwort)
+    {
+        if (strlen($Passwort) > 0) {
+            return (new DefaultPasswordHasher)->hash($Passwort);
+        }
+    }
 }
