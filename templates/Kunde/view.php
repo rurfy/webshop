@@ -1,12 +1,9 @@
 <?php
-
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Kunde $kunde
  */
 ?>
-<?php $this->extend('../produkt/cart'); ?>
-<?php $this->start('produktview'); ?>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -30,7 +27,7 @@
                     <td><?= h($kunde->Nachname) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('E-Mail') ?></th>
+                    <th><?= __('EMail') ?></th>
                     <td><?= h($kunde->EMail) ?></td>
                 </tr>
                 <tr>
@@ -50,6 +47,14 @@
                     <td><?= h($kunde->Land) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Benutzername') ?></th>
+                    <td><?= h($kunde->Benutzername) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Passwort') ?></th>
+                    <td><?= h($kunde->Passwort) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('KundeID') ?></th>
                     <td><?= $this->Number->format($kunde->KundeID) ?></td>
                 </tr>
@@ -57,4 +62,3 @@
         </div>
     </div>
 </div>
-<?php $this->end(); ?>

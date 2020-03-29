@@ -29,6 +29,8 @@
                     echo $this->Form->control('PLZ');
                     echo $this->Form->control('Stadt');
                     echo $this->Form->control('Land');
+                    echo $this->Form->control('Benutzername');
+                    echo $this->Form->control('Passwort');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

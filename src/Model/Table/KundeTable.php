@@ -96,6 +96,25 @@ class KundeTable extends Table
             ->requirePresence('Land', 'create')
             ->notEmptyString('Land');
 
+        $validator
+            ->scalar('Benutzername')
+            ->maxLength('Benutzername', 100)
+            ->requirePresence('Benutzername', 'create')
+            ->notEmptyString('Benutzername');
+
+        $validator
+            ->scalar('Passwort')
+            ->maxLength('Passwort', 100)
+            ->requirePresence('Passwort', 'create')
+            ->notEmptyString('Passwort');
+
         return $validator;
+    }
+
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['Benutzername']));
+
+        return $rules;
     }
 }
