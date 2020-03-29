@@ -1,71 +1,94 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Entity\CartItem;
 use Cake\Event\Event;
 use Cake\Core\Configure;
 
-class CartController extends AppController {
+class CartController extends AppController
+{
 
-    public function beforeFilter(Event $event)
+    public function initialize(): void
     {
-        // allow all action
-        //$this->Auth->allow();
+        parent::initialize();
+        $this->modelClass = false;
     }
-    
+
     public function index()
     {
-        $produkt = $this->paginate($this->Produkt);
-
-        $this->set(compact('produkt'));
     }
 
-    public function add($id = null) {
-        session_start();
-        $produkt = $this->Produkt->get($id, [
-            'contain' => [],
-        ]);
+    public function add($id = null)
+    {
+        $this->loadModel('Produkt');
 
         $quantity = 0;
         $quantity = round($this->request->getData("menge"), 0);
 
-        $_SESSION["cart_item"][$produkt->ProduktID]["id"] = $produkt->ProduktID;
-        $_SESSION["cart_item"][$produkt->ProduktID]["bezeichnung"] = $produkt->Bezeichnung;
-        $_SESSION["cart_item"][$produkt->ProduktID]["art"] = $produkt->Art;
-        $_SESSION["cart_item"][$produkt->ProduktID]["preis"] = $produkt->Preis;
-        if($quantity > 0) {
-            if(array_key_exists($produkt->ProduktID, $_SESSION["cart_item"])) {
-                $_SESSION["cart_item"][$produkt->ProduktID]["menge"] += $quantity;   
+        if ($quantity > 0) {
+            $produkt = $this->Produkt->get($id, [
+                'contain' => [],
+            ]);
+            if ($this->getRequest()->getSession()->check("Cart")) {
+                $cartItems = $this->getRequest()->getSession()->consume("Cart");
+                $c = false;
+                foreach ($cartItems as $cartItem) {
+                    if ($cartItem->Produkt == $produkt) {
+                        $c = true;
+                        $cartItem->Menge += $quantity;
+                        break;
+                    }
+                }
+                if (!$c) {
+                    array_push($cartItems, new CartItem($produkt, $quantity));
+                }
+                $this->getRequest()->getSession()->write("Cart", $cartItems);
             }
             else {
-                $_SESSION["cart_item"][$produkt->ProduktID]["menge"] = $quantity;  
+                $this->getRequest()->getSession()->write("Cart", [new CartItem($produkt, $quantity)]);
             }
-        }
-        else {
+            
+        } else {
             $this->Flash->error(__('Menge muss mindestens 1 und eine Zahl sein.'));
+            return $this->redirect($this->referer());
         }
 
-        return $this->redirect(['controller'=>'produkt', 'action' => 'view/'.$id]);
+        return $this->redirect(['action' => 'index']);
     }
 
-    public function view() {
-    }
-
-    public function delete($id = null, $pID = null) {
-        session_start();
-
-        if(array_key_exists($id, $_SESSION["cart_item"])) {
-            unset($_SESSION['cart_item'][$id]);
-        }
-
-        return $this->redirect(['action' => 'view/'.$pID]);
-    }
-
-    public function emptyCart($id = null)
+    public function view()
     {
-        session_start();
-        session_destroy();
+    }
 
-        return $this->redirect(['action' => 'view/'.$id]);
+    public function delete($id = null)
+    {
+        $this->loadModel('Produkt');
+
+        if ($this->getRequest()->getSession()->check("Cart")) {
+            $cartItems = $this->getRequest()->getSession()->consume("Cart");
+            $produkt = $this->Produkt->get($id, [
+                'contain' => [],
+            ]);
+            foreach ($cartItems as $cartItem) {
+                if ($cartItem->Produkt == $produkt) {
+                    if (($key = array_search($cartItem, $cartItems)) !== false) {
+                        unset($cartItems[$key]);
+                    }
+                }
+                break;
+            }
+            $this->getRequest()->getSession()->write("Cart", $cartItems);
+        }
+
+        return $this->redirect($this->referer());
+    }
+
+
+    public function emptyCart()
+    {
+        $this->getRequest()->getSession()->delete("Cart");
+        return $this->redirect($this->referer());
     }
 }
