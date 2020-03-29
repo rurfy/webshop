@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
-use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
- * Kunde Entity
+ * User Entity
  *
  * @property int $KundeID
  * @property string $Vorname
@@ -20,7 +20,7 @@ use Cake\ORM\Entity;
  * @property string $Benutzername
  * @property string $Passwort
  */
-class Kunde extends Entity
+class User extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,9 +31,6 @@ class Kunde extends Entity
      *
      * @var array
      */
-
-    public $useTable = 'kunde';
-
     protected $_accessible = [
         'Vorname' => true,
         'Nachname' => true,

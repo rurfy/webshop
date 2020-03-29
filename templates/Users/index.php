@@ -1,12 +1,12 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Kunde[]|\Cake\Collection\CollectionInterface $kunde
+ * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
-<div class="kunde index content">
-    <?= $this->Html->link(__('New Kunde'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Kunde') ?></h3>
+<div class="users index content">
+    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <h3><?= __('Users') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
@@ -25,22 +25,22 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($kunde as $kunde): ?>
+                <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= $this->Number->format($kunde->KundeID) ?></td>
-                    <td><?= h($kunde->Vorname) ?></td>
-                    <td><?= h($kunde->Nachname) ?></td>
-                    <td><?= h($kunde->EMail) ?></td>
-                    <td><?= h($kunde->Adresse) ?></td>
-                    <td><?= h($kunde->PLZ) ?></td>
-                    <td><?= h($kunde->Stadt) ?></td>
-                    <td><?= h($kunde->Land) ?></td>
-                    <td><?= h($kunde->Benutzername) ?></td>
-                    <td><?= h($kunde->Passwort) ?></td>
+                    <td><?= $this->Number->format($user->KundeID) ?></td>
+                    <td><?= h($user->Vorname) ?></td>
+                    <td><?= h($user->Nachname) ?></td>
+                    <td><?= h($user->EMail) ?></td>
+                    <td><?= h($user->Adresse) ?></td>
+                    <td><?= h($user->PLZ) ?></td>
+                    <td><?= h($user->Stadt) ?></td>
+                    <td><?= h($user->Land) ?></td>
+                    <td><?= h($user->Benutzername) ?></td>
+                    <td><?= h($user->Passwort) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $kunde->KundeID]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $kunde->KundeID]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $kunde->KundeID], ['confirm' => __('Are you sure you want to delete # {0}?', $kunde->KundeID)]) ?>
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->KundeID]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->KundeID]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->KundeID], ['confirm' => __('Are you sure you want to delete # {0}?', $user->KundeID)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

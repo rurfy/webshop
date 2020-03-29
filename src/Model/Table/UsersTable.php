@@ -9,23 +9,23 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Kunde Model
+ * Users Model
  *
- * @method \App\Model\Entity\Kunde newEmptyEntity()
- * @method \App\Model\Entity\Kunde newEntity(array $data, array $options = [])
- * @method \App\Model\Entity\Kunde[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Kunde get($primaryKey, $options = [])
- * @method \App\Model\Entity\Kunde findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \App\Model\Entity\Kunde patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Kunde[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\Kunde|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Kunde saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Kunde[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\Kunde[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \App\Model\Entity\Kunde[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\Kunde[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method \App\Model\Entity\User newEmptyEntity()
+ * @method \App\Model\Entity\User newEntity(array $data, array $options = [])
+ * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\User get($primaryKey, $options = [])
+ * @method \App\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \App\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\User[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \App\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class KundeTable extends Table
+class UsersTable extends Table
 {
     /**
      * Initialize method
@@ -37,7 +37,7 @@ class KundeTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('kunde');
+        $this->setTable('users');
         $this->setDisplayField('KundeID');
         $this->setPrimaryKey('KundeID');
     }
@@ -110,7 +110,7 @@ class KundeTable extends Table
 
         return $validator;
     }
-
+    
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['Benutzername']));

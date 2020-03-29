@@ -3,16 +3,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\Entity\Kunde;
-
 /**
- * Kunde Controller
+ * Users Controller
  *
- * @property \App\Model\Table\KundeTable $Kunde
+ * @property \App\Model\Table\UsersTable $Users
  *
- * @method \App\Model\Entity\Kunde[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class KundeController extends AppController
+class UsersController extends AppController
 {
     /**
      * Index method
@@ -21,25 +19,25 @@ class KundeController extends AppController
      */
     public function index()
     {
-        $kunde = $this->paginate($this->Kunde);
+        $users = $this->paginate($this->Users);
 
-        $this->set(compact('kunde'));
+        $this->set(compact('users'));
     }
 
     /**
      * View method
      *
-     * @param string|null $id Kunde id.
+     * @param string|null $id User id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $kunde = $this->Kunde->get($id, [
+        $user = $this->Users->get($id, [
             'contain' => [],
         ]);
 
-        $this->set('kunde', $kunde);
+        $this->set('user', $user);
     }
 
     /**
@@ -49,58 +47,58 @@ class KundeController extends AppController
      */
     public function add()
     {
-        $kunde = $this->Kunde->newEmptyEntity();
+        $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $kunde = $this->Kunde->patchEntity($kunde, $this->request->getData());
-            if ($this->Kunde->save($kunde)) {
-                $this->Flash->success(__('The kunde has been saved.'));
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The kunde could not be saved. Please, try again.'));
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('kunde'));
+        $this->set(compact('user'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Kunde id.
+     * @param string|null $id User id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $kunde = $this->Kunde->get($id, [
+        $user = $this->Users->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $kunde = $this->Kunde->patchEntity($kunde, $this->request->getData());
-            if ($this->Kunde->save($kunde)) {
-                $this->Flash->success(__('The kunde has been saved.'));
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The kunde could not be saved. Please, try again.'));
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('kunde'));
+        $this->set(compact('user'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Kunde id.
+     * @param string|null $id User id.
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $kunde = $this->Kunde->get($id);
-        if ($this->Kunde->delete($kunde)) {
-            $this->Flash->success(__('The kunde has been deleted.'));
+        $user = $this->Users->get($id);
+        if ($this->Users->delete($user)) {
+            $this->Flash->success(__('The user has been deleted.'));
         } else {
-            $this->Flash->error(__('The kunde could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -123,7 +121,7 @@ class KundeController extends AppController
             
             // redirect to /articles after login success
             $redirect = $this->request->getQuery('redirect', [
-                'controller' => 'Kunde',
+                'controller' => 'Users',
                 'action' => 'index',
             ]);
 
@@ -142,7 +140,7 @@ class KundeController extends AppController
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
             $this->Authentication->logout();
-            return $this->redirect(['controller' => 'Kunde', 'action' => 'login']);
+            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
     }
 }

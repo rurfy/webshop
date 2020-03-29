@@ -1,62 +1,62 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Kunde $kunde
+ * @var \App\Model\Entity\User $user
  */
 ?>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Kunde'), ['action' => 'edit', $kunde->KundeID], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Kunde'), ['action' => 'delete', $kunde->KundeID], ['confirm' => __('Are you sure you want to delete # {0}?', $kunde->KundeID), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Kunde'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Kunde'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->KundeID], ['class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->KundeID], ['confirm' => __('Are you sure you want to delete # {0}?', $user->KundeID), 'class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
-        <div class="kunde view content">
-            <h3><?= h($kunde->KundeID) ?></h3>
+        <div class="users view content">
+            <h3><?= h($user->KundeID) ?></h3>
             <table>
                 <tr>
                     <th><?= __('Vorname') ?></th>
-                    <td><?= h($kunde->Vorname) ?></td>
+                    <td><?= h($user->Vorname) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Nachname') ?></th>
-                    <td><?= h($kunde->Nachname) ?></td>
+                    <td><?= h($user->Nachname) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('EMail') ?></th>
-                    <td><?= h($kunde->EMail) ?></td>
+                    <td><?= h($user->EMail) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Adresse') ?></th>
-                    <td><?= h($kunde->Adresse) ?></td>
+                    <td><?= h($user->Adresse) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('PLZ') ?></th>
-                    <td><?= h($kunde->PLZ) ?></td>
+                    <td><?= h($user->PLZ) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Stadt') ?></th>
-                    <td><?= h($kunde->Stadt) ?></td>
+                    <td><?= h($user->Stadt) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Land') ?></th>
-                    <td><?= h($kunde->Land) ?></td>
+                    <td><?= h($user->Land) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Benutzername') ?></th>
-                    <td><?= h($kunde->Benutzername) ?></td>
+                    <td><?= h($user->Benutzername) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Passwort') ?></th>
-                    <td><?= h($kunde->Passwort) ?></td>
+                    <td><?= h($user->Passwort) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('KundeID') ?></th>
-                    <td><?= $this->Number->format($kunde->KundeID) ?></td>
+                    <td><?= $this->Number->format($user->KundeID) ?></td>
                 </tr>
             </table>
         </div>
