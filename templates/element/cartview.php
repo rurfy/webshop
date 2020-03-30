@@ -48,4 +48,5 @@
             </tbody>
         </table>
     </div>
+    <?= $this->Html->link(__('Warenkorb absenden'), ['controller' => 'checkout', 'action' => 'index']) ?>
 </div>

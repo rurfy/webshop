@@ -17,6 +17,7 @@
             <?= $this->Form->control('menge'); ?>
             <?= $this->Form->submit('Zum Warenkorb hinzufügen'); ?>
             <?= $this->Form->end() ?>
+        </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="produkt view content">
@@ -47,9 +48,6 @@
     </div>
 </div>
 <div class="row">
-    <aside class="column">
-
-    </aside>
     <div class="column-responsive column-80">
         <?= $this->element('cartview') ?>
     </div>
