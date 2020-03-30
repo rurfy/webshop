@@ -9,11 +9,12 @@
     <div class="row">
         <?php
         if ($user) { ?>
-            <?= $this->element('edituser') ?>
+            <?= $this->element('edituser', ["user" => $user]) ?>
         <?php
         } else { ?>
             <?= $this->element('adduser') ?>
         <?php }
         ?>
     </div>
+    <?= $this->Html->link(__('Bezahlen per Rechnung'), ['action' => 'invoice']) ?>
 </div>

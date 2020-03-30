@@ -10,7 +10,7 @@
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $user->KundeID],
+                ['controller' => 'Users', 'action' => 'view', $user->KundeID],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $user->KundeID), 'class' => 'side-nav-item']
             ) ?>
             <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
