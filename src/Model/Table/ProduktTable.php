@@ -33,11 +33,11 @@ class ProduktTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    
     public function initialize(array $config): void
     {
         parent::initialize($config);
-        
+
+        $this->setTable('produkt');
         $this->setDisplayField('ProduktID');
         $this->setPrimaryKey('ProduktID');
     }
@@ -76,6 +76,12 @@ class ProduktTable extends Table
             ->numeric('Preis')
             ->requirePresence('Preis', 'create')
             ->notEmptyString('Preis');
+
+        $validator
+            ->scalar('Bild')
+            ->maxLength('Bild', 255)
+            ->requirePresence('Bild', 'create')
+            ->notEmptyString('Bild');
 
         return $validator;
     }

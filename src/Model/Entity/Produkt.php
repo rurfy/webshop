@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property string $Farbe
  * @property string $Art
  * @property float $Preis
+ * @property string $Bild
  */
 class Produkt extends Entity
 {
@@ -26,10 +27,10 @@ class Produkt extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
         'Bezeichnung' => true,
         'Farbe' => true,
         'Art' => true,
         'Preis' => true,
+        'Bild' => true,
     ];
 }

@@ -16,10 +16,12 @@ class CartItem
 {
     public $Produkt;
     public $Menge;
+    public $groesse;
 
-    function __construct($produkt, $menge) {
+    function __construct($produkt, $menge, $groesse) {
         $this->Produkt = $produkt;
         $this->Menge = $menge;
+        $this->groesse = $groesse;
     }
 
 }
