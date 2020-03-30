@@ -1,3 +1,1 @@
-<div class="column-responsive column-80">
-    <?= $this->element('cartview') ?>
-</div>
+<?= $this->element('cartview') ?>
