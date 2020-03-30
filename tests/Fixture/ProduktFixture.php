@@ -28,6 +28,7 @@ class ProduktFixture extends TestFixture
         'Farbe' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'Art' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'Preis' => ['type' => 'float', 'length' => 9, 'precision' => 2, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => ''],
+        'Bild' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['ProduktID'], 'length' => []],
         ],
@@ -51,6 +52,7 @@ class ProduktFixture extends TestFixture
                 'Farbe' => 'Lorem ipsum dolor sit amet',
                 'Art' => 'Lorem ipsum dolor sit amet',
                 'Preis' => 1,
+                'Bild' => 'Lorem ipsum dolor sit amet',
             ],
         ];
         parent::init();

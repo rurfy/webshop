@@ -26,6 +26,7 @@
                     echo $this->Form->control('Farbe');
                     echo $this->Form->control('Art');
                     echo $this->Form->control('Preis');
+                    echo $this->Form->control('Bild');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

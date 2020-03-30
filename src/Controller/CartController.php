@@ -25,7 +25,9 @@ class CartController extends AppController
         $this->loadModel('Produkt');
 
         $quantity = 0;
+        $groesse = 0;
         $quantity = round($this->request->getData("menge"), 0);
+        $groesse = $this->request->getData("groesse");
 
         if ($quantity > 0) {
             $produkt = $this->Produkt->get($id, [
@@ -35,19 +37,19 @@ class CartController extends AppController
                 $cartItems = $this->getRequest()->getSession()->consume("Cart");
                 $c = false;
                 foreach ($cartItems as $cartItem) {
-                    if ($cartItem->Produkt == $produkt) {
+                    if ($cartItem->Produkt == $produkt && $cartItem->groesse == $groesse) {
                         $c = true;
                         $cartItem->Menge += $quantity;
                         break;
                     }
                 }
                 if (!$c) {
-                    array_push($cartItems, new CartItem($produkt, $quantity));
+                    array_push($cartItems, new CartItem($produkt, $quantity, $groesse));
                 }
                 $this->getRequest()->getSession()->write("Cart", $cartItems);
             }
             else {
-                $this->getRequest()->getSession()->write("Cart", [new CartItem($produkt, $quantity)]);
+                $this->getRequest()->getSession()->write("Cart", [new CartItem($produkt, $quantity, $groesse)]);
             }
             
         } else {

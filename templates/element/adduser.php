@@ -25,7 +25,7 @@
                     echo $this->Form->control('Stadt');
                     echo $this->Form->control('Land');
                     echo $this->Form->control('Benutzername');
-                    echo $this->Form->control('Passwort');
+                    echo $this->Form->control('Passwort',array('type'=>'password'));
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Bestätigen')) ?>
