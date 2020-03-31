@@ -9,7 +9,7 @@
     <div class="users form content">
         <?= $this->Form->create($user, ['url' => ['controller' => 'Users', 'action' => 'edit', $user->KundeID]]) ?>
         <fieldset>
-            <legend><?= __('Edit User') ?></legend>
+            <legend><?= __('Lieferdaten anpassen') ?></legend>
             <?php
             echo $this->Form->control('Vorname');
             echo $this->Form->control('Nachname');

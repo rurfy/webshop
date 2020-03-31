@@ -14,7 +14,7 @@ class CartController extends AppController
         parent::beforeFilter($event);
         // Configure the login action to not require authentication, preventing
         // the infinite redirect loop issue
-        $this->Authentication->addUnauthenticatedActions(['delete']);
+        $this->Authentication->addUnauthenticatedActions(['delete', 'emptyCart']);
     }
 
     public function initialize(): void
@@ -78,14 +78,11 @@ class CartController extends AppController
             $produkt = $this->Produkt->get($id, [
                 'contain' => [],
             ]);
-            foreach ($cartItems as $cartItem) {
-                if ($cartItem->Produkt == $produkt && $cartItem->groesse == $g) {
-                    $key = array_search($cartItem, $cartItems);
-                    if ($key !== false) {
-                        unset($cartItems[$key]);
-                    }
-                }
-                break;
+            foreach ($cartItems as $key => $value) {
+                if ($value->Produkt == $produkt  && $value->groesse == $g) {
+                    unset($cartItems[$key]);
+                    break;
+                }                
             }
             $this->getRequest()->getSession()->write("Cart", $cartItems);
         }

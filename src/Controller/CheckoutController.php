@@ -126,10 +126,6 @@ class CheckoutController extends AppController
                 <h3>" .  h("Rechnungsdetails")  . "</h3>
                 <table>
                     <tr>
-                        <th>" .  __('Rechnungsnummer')  . "</th>
-                        <td>" .  h('')  . "</td>
-                    </tr>
-                    <tr>
                         <th>" .  __('Kundennummer')  . "</th>
                         <td>" .  h($user->KundeID)  . "</td>
                     </tr>
@@ -195,10 +191,6 @@ class CheckoutController extends AppController
                 <h3>" .  h("Rechnungsdetails")  . "</h3>
                 <table>
                     <tr>
-                        <th>" .  __('Rechnungsnummer')  . "</th>
-                        <td>" .  h('')  . "</td>
-                    </tr>
-                    <tr>
                         <th>" .  __('Datum')  . "</th>
                         <td>" .  h(date('d/m/Y'))  . "</td>
                     </tr>
@@ -237,8 +229,8 @@ class CheckoutController extends AppController
         // Dokumenteninformationen
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor("Kitos GmbH");
-        $pdf->SetTitle('Rechnung ' . 'Rechnungsnummer');
-        $pdf->SetSubject('Rechnung ' . "Rechnungsnummer");
+        $pdf->SetTitle('Rechnung');
+        $pdf->SetSubject('Rechnung');
 
         // Header und Footer Informationen
         $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));

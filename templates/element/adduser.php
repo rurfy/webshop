@@ -23,26 +23,7 @@
                 echo $this->Form->control('Land');
                 ?>
             </fieldset>
-            <style>
-                a.button {
-                    background-color: #d33c43;
-                    border: 0.1rem solid #d33c43;
-                    border-radius: .4rem;
-                    color: #fff;
-                    cursor: pointer;
-                    display: inline-block;
-                    font-size: 1.1rem;
-                    font-weight: 700;
-                    height: 3.8rem;
-                    letter-spacing: .1rem;
-                    line-height: 3.8rem;
-                    padding: 0 3.0rem;
-                    text-align: center;
-                    text-decoration: none;
-                    text-transform: uppercase;
-                    white-space: nowrap;
-                }
-            </style>
+            
             <?= $this->Form->submit('Bezahlen per Rechnung') ?>
             <?= $this->Form->end() ?>
         </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -18,6 +19,7 @@ $cakeDescription = 'Kitos Webshop';
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,14 +39,23 @@ $cakeDescription = 'Kitos Webshop';
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
+
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
             <a href="/"><span>Kitos</span>Webshop</a>
         </div>
         <div class="top-nav-links">
-            <a class="navbar-brand" href="/users">Profil</a>
-            <a class="navbar-brand" href="/cart">Warenkorb</a>
+            <?php $identifikation = $this->request->getAttribute('identity');
+            if ($identifikation) { ?>
+                <a class="navbar-brand" href="/users">Profil</a>
+                <a class="navbar-brand" href="/cart">Warenkorb</a>
+                <a class="navbar-brand" href="/users/logout">Logout</a>
+            <?php } else { ?>
+                <a class="navbar-brand" href="/users/login">Anmelden</a>
+                <a class="navbar-brand" href="/cart">Warenkorb</a>
+            <?php } ?>
+            
         </div>
     </nav>
     <main class="main">
@@ -56,4 +67,5 @@ $cakeDescription = 'Kitos Webshop';
     <footer>
     </footer>
 </body>
+
 </html>
