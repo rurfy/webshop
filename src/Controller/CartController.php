@@ -9,6 +9,13 @@ use Cake\Core\Configure;
 
 class CartController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // Configure the login action to not require authentication, preventing
+        // the infinite redirect loop issue
+        $this->Authentication->addUnauthenticatedActions(['delete']);
+    }
 
     public function initialize(): void
     {
@@ -47,11 +54,9 @@ class CartController extends AppController
                     array_push($cartItems, new CartItem($produkt, $quantity, $groesse));
                 }
                 $this->getRequest()->getSession()->write("Cart", $cartItems);
-            }
-            else {
+            } else {
                 $this->getRequest()->getSession()->write("Cart", [new CartItem($produkt, $quantity, $groesse)]);
             }
-            
         } else {
             $this->Flash->error(__('Menge muss mindestens 1 und eine Zahl sein.'));
             return $this->redirect($this->referer());
@@ -64,18 +69,19 @@ class CartController extends AppController
     {
     }
 
-    public function delete($id = null)
+    public function delete($groesse = null, $id = null)
     {
         $this->loadModel('Produkt');
-
+        $g = $groesse;
         if ($this->getRequest()->getSession()->check("Cart")) {
             $cartItems = $this->getRequest()->getSession()->consume("Cart");
             $produkt = $this->Produkt->get($id, [
                 'contain' => [],
             ]);
             foreach ($cartItems as $cartItem) {
-                if ($cartItem->Produkt == $produkt) {
-                    if (($key = array_search($cartItem, $cartItems)) !== false) {
+                if ($cartItem->Produkt == $produkt && $cartItem->groesse == $g) {
+                    $key = array_search($cartItem, $cartItems);
+                    if ($key !== false) {
                         unset($cartItems[$key]);
                     }
                 }

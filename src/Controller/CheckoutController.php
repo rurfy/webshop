@@ -8,27 +8,53 @@ use TCPDF;
 class CheckoutController extends AppController
 {
 
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // for all controllers in our application, make index and view
+        // actions public, skipping the authentication check.
+        $this->Authentication->addUnauthenticatedActions(['index', 'invoice']);
+    }
+
     public function index()
     {
         $this->loadModel("Users");
         $userIdentity = $this->request->getAttribute('identity');
-        $user = $this->Users->get($userIdentity->KundeID, [
-            'contain' => [],
-        ]);
-
+        if ($userIdentity) {
+            $user = $this->Users->get($userIdentity->KundeID, [
+                'contain' => [],
+            ]);
+        } else {
+            $user = $this->Users->newEmptyEntity();
+        }
         $this->set(compact('user'));
     }
 
     public function invoice()
     {
-        $this->loadModel("Users");
+        $daten = $this->request->getData();               
         $userIdentity = $this->request->getAttribute('identity');
-        $user = $this->Users->get($userIdentity->KundeID, [
-            'contain' => [],
-        ]);
+        if ($userIdentity) {
+            $this->loadModel("Users");
+            $userIdentity = $this->request->getAttribute('identity');
+            $user = $this->Users->get($userIdentity->KundeID, [
+                'contain' => [],
+            ]);
 
-        $this->set(compact('user'));
-
+            $this->set(compact('user'));
+        } else {           
+            $check = false;
+            foreach ($daten as $data) {
+                if (!$data) {
+                    $check = true;
+                    break;
+                }
+            }
+            if ($check) {
+                $this->Flash->error(__('Nicht genügend Daten angegeben.'));
+                return $this->redirect($this->referer());
+            }
+        } 
         $total_preis = 0;
         $total_menge = 0;
         $cartString = "";
@@ -66,10 +92,11 @@ class CheckoutController extends AppController
                 $total_preis += ($produkt->Preis * $cartItem->Menge);
             }
         }
-
+        
         $cartString = strval($cartString);
-
-        $html = "<h1>" . h('Rechnung') .  "</h1>
+        
+        if ($userIdentity) {
+            $html = "<h1>" . h('Rechnung') .  "</h1>
 
         <div class='row'>
             <div class='column content'>
@@ -138,7 +165,72 @@ class CheckoutController extends AppController
                 </table>
             </div>
         </div>";
-
+        }else {
+            $html = "<h1>" . h('Rechnung') .  "</h1>            
+        <div class='row'>
+            <div class='column content'>
+                <h3>" . h("Kundenanschrift") . "</h3>
+                <table>
+                    <tr>
+                        <td>" . $daten['Vorname'] . "</td>
+                    </tr>
+                    <tr>
+                        <td>" .  $daten['Nachname']  . "</td>
+                    </tr>
+                    <tr>
+                        <td>" .  $daten['EMail']  . "</td>
+                    </tr>
+                    <tr>
+                        <td>" .  $daten['Adresse']  . "</td>
+                    </tr>
+                    <tr>
+                        <td>" .  $daten['PLZ']  . "</td>
+                    </tr>
+                    <tr>
+                        <td>" .  $daten['Stadt']  . "</td>
+                    </tr>
+                </table>
+            </div>
+            <div class='column content'>
+                <h3>" .  h("Rechnungsdetails")  . "</h3>
+                <table>
+                    <tr>
+                        <th>" .  __('Rechnungsnummer')  . "</th>
+                        <td>" .  h('')  . "</td>
+                    </tr>
+                    <tr>
+                        <th>" .  __('Datum')  . "</th>
+                        <td>" .  h(date('d/m/Y'))  . "</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class='content'>
+            <h3>" .  __('Warenkorb')  . "</h3>
+            <div class='table-responsive'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>" .  h('Bezeichnung')  . "</th>
+                            <th>" .  h('Menge')  . "</th>
+                            <th>" .  h('Größe')  . "</th>
+                            <th>" .  h('Preis')  . "</th>
+                            <th>" .  h('Gesamtpreis')  . "</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        " . $cartString  . "
+                        <tr>
+                        <td>Total:</td>
+                        <td>" .  $total_menge  . "</td>
+                        <td></td>
+                        <td>Gesamtpreis:</td>
+                        <td><strong>" .  number_format($total_preis, 2) . " €"  . "</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>";
+        }
         // Erstellung des PDF Dokuments
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -170,7 +262,7 @@ class CheckoutController extends AppController
         //$pdf->SetFont('proximanova', '', 10);
 
         $pdf->AddPage();
-        
+
         // Fügt den HTML Code in das PDF Dokument ein
         $pdf->writeHTML($html);
 
@@ -181,5 +273,4 @@ class CheckoutController extends AppController
 
         $this->redirect($this->referer());
     }
-
 }

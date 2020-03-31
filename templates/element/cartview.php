@@ -45,7 +45,7 @@
                             <td><?= number_format($produkt->Preis, 2) . " €" ?></td>
                             <td><?= number_format($einzel_preis, 2) . " €" ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('Entfernen'), ['action' => 'delete', $produkt->ProduktID]); ?>
+                                <?= $this->Html->link(__('Entfernen'), ['action' => 'delete', $cartItem->groesse , $produkt->ProduktID]); ?>
                             </td>
                         </tr>
                 <?php $total_menge += $cartItem->Menge;

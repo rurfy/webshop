@@ -19,9 +19,8 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users);
-
-        $this->set(compact('users'));
+        $identifikation = $this->request->getAttribute('identity');
+        return $this->redirect(['action' => 'view', $identifikation->KundeID]);
     }
 
     /**
@@ -53,7 +52,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Users', 'action' => 'login']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -121,7 +120,7 @@ class UsersController extends AppController
             
             // redirect to /articles after login success
             $redirect = $this->request->getQuery('redirect', [
-                'controller' => 'Users',
+                'controller' => 'Produkt',
                 'action' => 'index',
             ]);
 
@@ -129,8 +128,7 @@ class UsersController extends AppController
         }
         // display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
-            //$this->Flash->error(__('Invalid username or password'));
-            print_r($result);
+            $this->Flash->error(__('Benutzername oder Passwort ist falsch'));
         }
     }
 

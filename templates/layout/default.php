@@ -43,6 +43,7 @@ $cakeDescription = 'Kitos Webshop';
             <a href="/"><span>Kitos</span>Webshop</a>
         </div>
         <div class="top-nav-links">
+            <a class="navbar-brand" href="/users">Profil</a>
             <a class="navbar-brand" href="/cart">Warenkorb</a>
         </div>
     </nav>
